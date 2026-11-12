@@ -3,27 +3,29 @@ services:
     name: evolution-api
     runtime: docker
     region: ohio
-    plan: starter
+    plan: free
     branch: main
     dockerfilePath: ./Dockerfile
     envVars:
-      - key: AUTHENTICATION_API_KEY
-        generateValue: true
       - key: SERVER_URL
         value: https://evolution-api.onrender.com
+      - key: AUTHENTICATION_API_KEY
+        value: tonderai_2005_evolution_secret_key_9f4a
+      # Database Settings (Using internal SQLite so it works without a separate DB)
       - key: DATABASE_ENABLED
+        value: true
+      - key: DATABASE_PROVIDER
+        value: sqlite
+      - key: DATABASE_CONNECTION_URI
+        value: file:./evolution.db
+      # Cache & Logs
+      - key: CACHE_REDIS_ENABLED
         value: false
+      - key: CACHE_LOCAL_ENABLED
+        value: true
       - key: LOG_LEVEL
         value: ERROR,WARN,DEBUG,INFO
       - key: LOG_COLOR
-        value: true
-      - key: DEL_INSTANCE
-        value: false
-      - key: STORE_MESSAGES
-        value: true
-      - key: STORE_CONTACTS
-        value: true
-      - key: STORE_CHATS
         value: true
       - key: CORS_ORIGIN
         value: "*"
